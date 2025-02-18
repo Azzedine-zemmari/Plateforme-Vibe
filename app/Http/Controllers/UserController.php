@@ -25,10 +25,10 @@ class UserController extends Controller
     }
     public function login(Request $request){
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->intended('/Home'); // Redirect to intended route
+            return redirect()->route('user.Home'); 
         }
         else{
-            echo 'fuck';
+            echo '...';
         }
     }
 }

@@ -1,31 +1,20 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Middleware\testMidlleware;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/Home','Home',['name'=>'azzedine']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// route parameter
-Route::get("/admin/{id}",function(string $id){
-    return 'User ' . $id;
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// route parameter optional
-Route::get("/admin/{id?}",function(?string $id = null){
-    return 'User ' . $id;
-});
-// route parametre with condition on the parametere
-Route::get("/admin/{id}",function(string $id){
-    return 'User ' . $id;
-})->where('name','[A-Za-z]+');
-// register
-Route::get('/user/register',[UserController::class,'create'])->name('user.create');
-Route::post('/user/store',[UserController::class,'store'])->name('user.store');
-// login
-Route::get('/loginForm',[UserController::class,'showLoginForm'])->name('user.login');
-Route::post('/login',[UserController::class,'login'])->name('user.submit');
+require __DIR__.'/auth.php';
