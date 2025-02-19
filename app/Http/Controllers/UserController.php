@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Freind;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,5 +31,25 @@ class UserController extends Controller
         else{
             echo '...';
         }
+    }
+    public function index(Request $request){
+        $search = $request->input('search');
+        if($search){
+            $users = User::where('pseudo','like','%'. $search  .'%')->orWhere('email','like','%'.$search.'%')->get();
+        }
+        else{
+            $AuthenticatedId = Auth::id();
+            $users = User::where('id','!=',$AuthenticatedId)->get();
+            }
+        return view('users.index', compact('users')); 
+    }
+    public function addFreind(Request $request){
+        $freindId = $request->idUser;
+        $userId = Auth::id();
+
+        Freind::create([
+            'user_id' => $userId,
+            'friend_id' => $freindId
+        ]);
     }
 }

@@ -1,0 +1,3 @@
+<x-FreindsLayout>
+    
+</x-FreindsLayout>

@@ -49,4 +49,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // Define the relationship: a user has many freinds
+    public function freinds(){
+        return $this->hasMany(Freind::class);
+    }
 }
