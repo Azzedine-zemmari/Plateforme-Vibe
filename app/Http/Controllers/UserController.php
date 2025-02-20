@@ -43,13 +43,8 @@ class UserController extends Controller
             }
         return view('users.index', compact('users')); 
     }
-    public function addFreind(Request $request){
-        $freindId = $request->idUser;
-        $userId = Auth::id();
-
-        Freind::create([
-            'user_id' => $userId,
-            'friend_id' => $freindId
-        ]);
+    public function showProfile($userId){
+        $user = User::find($userId);
+        return view('users.UserProfile', compact('user'));
     }
 }

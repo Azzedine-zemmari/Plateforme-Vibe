@@ -49,7 +49,7 @@
                         >
                     </div>
                     <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-900">{{ $user->name }}</p>
+                        <a href="{{url('/USERPROFILE/'. $user->id)}}" class="text-sm font-medium text-gray-900">{{ $user->name }}</a>
                         <p class="text-sm text-gray-500">{{ $user->email }}</p>
                         <div class="mt-1 flex items-center">
                             <span class="flex h-2 w-2 relative">
@@ -64,7 +64,7 @@
             <div class="ml-4 flex-shrink-0 flex space-x-2">
                 <form action="{{url('/userAdd')}}" method="POST">
                     @csrf
-                    <input type="hidden" value="{{$user->id}}" name="idUser">
+                    <input type="hidden" value="{{$user->id}}" name="idUser"  id="user-id">
                     <button class="inline-flex items-center p-1.5 border border-transparent rounded-full shadow-sm text-indigo-600 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -103,4 +103,5 @@
                 </div>
             </div>
         </div>
+        
 </x-FreindsLayout>
