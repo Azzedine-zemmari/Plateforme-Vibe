@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Freind;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
 {
@@ -46,5 +47,29 @@ class UserController extends Controller
     public function showProfile($userId){
         $user = User::find($userId);
         return view('users.UserProfile', compact('user'));
+    }
+    public function showEditProfile($userId){
+        $user = User::find($userId);
+        return view('users.EditProfile',compact('user'));
+    }
+    public function updateProfile(Request $request,$id){
+        $user = User::findOrFail($id);
+        // dd($user);
+ // handle the profile image upload
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension();
+            $imagePath = $request->file('image')->storeAs('avatar', $imageName, 'public');
+
+            $user->image = $imagePath;
+        };
+        $user->update([
+            'name'=>$request->name,
+            'firstname'=>$request->first,
+            'pseudo'=>$request->pseudo,
+            'bio'=>$request->bio,
+        ]);
+
+        return redirect()->route('USERPROFILE',['userId'=>$user->id]);
     }
 }

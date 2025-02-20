@@ -36,7 +36,7 @@
                 <!-- Buttons -->
                 <div class="flex space-x-2">
                     <button class="px-4 py-2 bg-black text-white text-sm rounded-lg">
-                        Edit Profile
+                        <a href="{{url('/EditProfile/'.$user->id)}}">Edit Profile</a>
                     </button>
                     <button class="p-1 border border-gray-300 rounded-full">
                         <svg class="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

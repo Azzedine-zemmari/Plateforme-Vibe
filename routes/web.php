@@ -9,7 +9,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::match(['get','post'],'/users', [UserController::class, 'index']);
-Route::get('/USERPROFILE/{userId}',[UserController::class,'showProfile']);
+Route::get('/USERPROFILE/{userId}',[UserController::class,'showProfile'])->name('USERPROFILE');
+Route::get("/EditProfile/{userId}",[UserController::class,'showEditProfile']);
+Route::post('/UpdateProfile/{id}',[UserController::class,'updateProfile']);
 
 Route::post('/userAdd',[FreindController::class,'addFreind']);
 Route::get("/Myfreinds",[FreindController::class,'index']);
