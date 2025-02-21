@@ -36,7 +36,6 @@
         @foreach($users as $user)
         <li 
             class="px-4 py-4 flex items-center hover:bg-gray-50 transition-colors duration-150"
-            x-show="!searchTerm || '{{ strtolower($user->name) }}'.includes(searchTerm.toLowerCase()) || '{{ strtolower($user->email) }}'.includes(searchTerm.toLowerCase())"
         >
             <div class="min-w-0 flex-1">
                 <div class="flex items-center">
