@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::match(['get','post'],'/users', [UserController::class, 'index']);
+Route::match(['get','post'],'/users', [UserController::class, 'index'])->name('users');
 Route::get('/USERPROFILE/{userId}',[UserController::class,'showProfile'])->name('USERPROFILE');
 Route::get("/EditProfile/{userId}",[UserController::class,'showEditProfile']);
 Route::post('/UpdateProfile/{id}',[UserController::class,'updateProfile']);
 
 Route::post('/userAdd',[FreindController::class,'addFreind']);
-Route::get("/Myfreinds",[FreindController::class,'index']);
+Route::get("/Myfreinds",[FreindController::class,'index'])->name('Myfreinds');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

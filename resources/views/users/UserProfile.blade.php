@@ -8,7 +8,17 @@
 </head>
 <body class="">
         <!-- Header Image -->
-        <div class="h-32 w-full bg-gradient-to-r from-blue-400 to-purple-500"></div>
+        <div class="h-32 w-full bg-gradient-to-r from-blue-400 to-purple-500">
+             <!-- Added navigation section -->
+        <div class="flex items-center justify-end mb-6 ">
+            <a href="{{url('/users')}}" class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Home
+            </a>
+        </div>
+        </div>
         
         <!-- Profile Content -->
         <div class="bg-white rounded-b-lg shadow-sm p-6">
@@ -38,11 +48,11 @@
                     <button class="px-4 py-2 bg-black text-white text-sm rounded-lg">
                         <a href="{{url('/EditProfile/'.$user->id)}}">Edit Profile</a>
                     </button>
-                    <button class="p-1 border border-gray-300 rounded-full">
+                    <a href="mailto:?subject=Check out my profile&body=Check out my profile: {{ route('USERPROFILE', ['userId' => $user->id]) }}" target="_blank" class="p-1 border border-gray-300 rounded-full">
                         <svg class="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                         </svg>
-                    </button>
+                    </a>
                 </div>
 
                 <!-- About Section -->

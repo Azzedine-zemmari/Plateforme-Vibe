@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class FreindController extends Controller
 {
+    // afficher les amis du utilisateur authentifier
     public function index(){
         $authenticatedId = Auth::id();
         $freinds = Freind::join('users','users.id','=','freinds.friend_id')
@@ -19,29 +20,20 @@ class FreindController extends Controller
 
         return view('users.Myfreinds',compact('freinds'));
     }
-    public function sendFriendRequest(Request $request)
-    {
-        $userId = Auth::id(); // Authenticated user
-        $friendId = $request->friend_id;
-
-        // Save the friend request in the database
-        Freind::create([
-            'user_id' => $userId,
-            'friend_id' => $friendId,
-        ]);
-
-        // Broadcast the event to notify the friend
-        broadcast(new FriendRequestSent($userId, $friendId));
-
-        return response()->json(['status' => 'Friend request sent!']);
-    }
     public function addFreind(Request $request){
         $freindId = $request->idUser;
         $userId = Auth::id();
+        $existingFreind = Freind::where('user_id',$userId)->where('friend_id',$freindId)->first();
+        if($existingFreind){
+            return redirect()->route('Myfreinds')->with('error','This user is already exists');
+        }
 
         Freind::create([
             'user_id' => $userId,
             'friend_id' => $freindId
         ]);
+
+        
+        return redirect()->route('Myfreinds')->with('success','freind added successfuly');
     }
 }

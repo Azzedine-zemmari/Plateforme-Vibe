@@ -1,4 +1,16 @@
 <x-FreindsLayout>
+    @if(session('success'))
+        <div id='sessiont'  class="flex items-center space-x-3 bg-[#d4edda] text-[#155724] p-4 border border-[#c3e6cb] rounded-md mb-7 shadow-md">
+        <img class="w-5" src="{{asset('/images/success-filled-svgrepo-com.svg')}}" />
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+    @if(session('error'))
+        <div id='sessiont' class="flex items-center space-x-3 bg-[#f8d7da] text-[#721c24] p-4 border border-[#f5c6cb] rounded-md mb-7 shadow-md">
+            <img class="w-5" src="{{asset('/images/error-filled-svgrepo-com.svg')}}" />
+            <span>{{ session('error') }}</span>
+        </div>
+    @endif
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header Section -->
         <div class="flex justify-between items-center mb-6">
@@ -50,7 +62,7 @@
 
                         <!-- User Info -->
                         <div class="flex-1">
-                            <a href="" class="text-lg font-semibold text-gray-900">{{$freind->name}}</a>
+                            <a  href="{{url('/USERPROFILE/'. $freind->id)}}"  class="text-lg font-semibold text-gray-900">{{$freind->name}}</a>
                             <p class="text-sm text-gray-500">{{$freind->pseudo ?? ''}}</p>
                             <p class="text-sm text-gray-500 truncate">{{$freind->email}}</p>
                         </div>
@@ -101,4 +113,12 @@
         </div>
         @endif
     </div>
+    <script>
+        const sessiont = document.getElementById('sessiont');
+        if(sessiont){
+            setTimeout(()=>{
+                sessiont.style.display = 'none';
+            },4000);
+        }
+    </script>
 </x-FreindsLayout>
