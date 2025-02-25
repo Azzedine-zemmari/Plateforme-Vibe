@@ -13,8 +13,11 @@ Route::get('/USERPROFILE/{userId}',[UserController::class,'showProfile'])->name(
 Route::get("/EditProfile/{userId}",[UserController::class,'showEditProfile']);
 Route::post('/UpdateProfile/{id}',[UserController::class,'updateProfile']);
 
+
 Route::post('/userAdd',[FreindController::class,'addFreind']);
 Route::get("/Myfreinds",[FreindController::class,'index'])->name('Myfreinds');
+Route::post('/accepteRequest',[FreindController::class,'acceptFreind']);
+Route::post('/cancel',[FreindController::class,'refuseFreind']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

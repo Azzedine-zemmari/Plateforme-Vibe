@@ -76,6 +76,16 @@
                             </svg>
                             <p>{{$freind->status}}</p>
                         </button>
+                        <form action="/accepteRequest" method="POST">
+                            @csrf
+                            <input type="hidden" name="freindId" value="{{$freind->id}}">
+                            <button>accepter</button>
+                        </form>
+                        <form action="/cancel" method="POST">
+                            @csrf 
+                            <input type="hidden" name="freindId" value="{{$freind->id}}">
+                            <button>refuser</button>
+                        </form>
 
                         <div class="flex space-x-2">
                             <button class="inline-flex items-center text-sm text-gray-500 hover:text-indigo-600">

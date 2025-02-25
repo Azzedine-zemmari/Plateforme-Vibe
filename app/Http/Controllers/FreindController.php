@@ -28,15 +28,15 @@ class FreindController extends Controller
         ->where('friend_id',$freindId)
         ->orWhere('user_id',$freindId)
         ->where('friend_id',$userId)
-        ->exists();
+        ->first();
         if($existingFreind){
-            if($existingFreind->status = 'done'){
+            if($existingFreind->status == 'done'){
                 return redirect()->route('Myfreinds')->with('error','You are already freinds');
             }
-            if($existingFreind->status = 'pending'){
+            if($existingFreind->status == 'pending'){
                 return redirect()->route('Myfreinds')->with('error','A freind request is already pending');
             }
-            if($existingFreind->status = 'canceled'){
+            if($existingFreind->status == 'canceled'){
                 return redirect()->route('Myfreinds')->with('error','This friend request was previously rejected.');
             }
         }
@@ -57,6 +57,50 @@ class FreindController extends Controller
         return redirect()->route('Myfreinds')->with('success','freind added successfuly');
     }
     public function acceptFreind(Request $request){
-        
+        $userId = Auth::id();
+        $freindId = $request->input('freindId');
+
+        $freindRequest = Freind::where('user_id',$userId)
+        ->where('friend_id',$freindId)
+        ->where('status','pending')
+        ->first();
+
+        if(!$freindRequest){
+            return redirect()->route('Myfreinds')->with('error','This friend request is either not found or has already been processed.');
+        }
+        $freindRequest->status = 'done';
+        $freindRequest->save();
+
+        $reverseRequest = Freind::where('user_id',$freindId)->where('friend_id',$userId)->where('status','pending')->first();
+
+        if($reverseRequest){
+            $reverseRequest->status = 'done';
+            $reverseRequest->save();
+        }
+
+        return redirect()->route('Myfreinds')->with('success', 'Friend request accepted successfully.');
+    }
+    public function refuseFreind(Request $request){
+        $userId = Auth::id();
+        $freindId = $request->input('freindId');
+
+        $freindRequest = Freind::where('user_id',$userId)->where('friend_id',$freindId)->where('status','pending')->first();
+
+        if(!$freindRequest){
+            return redirect()->route('Myfreinds')->with('error','This friend request is either not found or has already been processed.');
+        }
+
+        $freindRequest->status = 'canceled';
+        $freindRequest->save();
+
+    //    reverse for the freindId incase he is the authenticated user he need to see that the other freind canceld
+
+        $reverserRequest = Freind::where('user_id',$freindId)->where('friend_id',$userId)->where('status','pending')->first();
+
+        if($reverserRequest){
+            $reverserRequest->status = 'canceled';
+            $reverserRequest->save();
+        }
+        return redirect()->route('Myfreinds');
     }
 }
