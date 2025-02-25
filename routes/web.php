@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FreindController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +19,14 @@ Route::post('/userAdd',[FreindController::class,'addFreind']);
 Route::get("/Myfreinds",[FreindController::class,'index'])->name('Myfreinds');
 Route::post('/accepteRequest',[FreindController::class,'acceptFreind']);
 Route::post('/cancel',[FreindController::class,'refuseFreind']);
+
+
+Route::prefix('post')->group(function() {
+    Route::get('/postAdd',[PostController::class,'insertForm']);
+    Route::post('/addPost',[PostController::class,'addPost'])->name('add');
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
