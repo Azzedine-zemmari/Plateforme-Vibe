@@ -29,8 +29,16 @@ class PostController extends Controller
 
         // Fetch the posts and authenticated user after inserting a post
         $posts = DB::table('posts')
-        ->join('users', 'users.id', '=', 'posts.userId')
-        ->select('users.name', 'users.image', 'posts.content', 'posts.image as IMAGE')
+        ->join('users','users.id','=','posts.userId')
+        ->leftJoin('likes','likes.postId','=','posts.id')
+        ->select('users.name',
+        'users.image',
+        'posts.content',
+        'posts.image as IMAGE',
+        'posts.id',
+        DB::raw('COUNT(likes.id) as likes_count')
+        )
+        ->groupBy('posts.id', 'users.name', 'users.image', 'posts.content', 'IMAGE') 
         ->orderByDesc('posts.created_at')
         ->get();
 
@@ -44,11 +52,20 @@ class PostController extends Controller
     public function showPosts(){
         $posts = DB::table('posts')
         ->join('users','users.id','=','posts.userId')
-        ->select('users.name','users.image','posts.content','posts.image as IMAGE')
+        ->leftJoin('likes','likes.postId','=','posts.id')
+        ->select('users.name',
+        'users.image',
+        'posts.content',
+        'posts.image as IMAGE',
+        'posts.id',
+        DB::raw('COUNT(likes.id) as likes_count')
+        )
+        ->groupBy('posts.id', 'users.name', 'users.image', 'posts.content', 'IMAGE') 
         ->orderByDesc('posts.created_at')
         ->get();
 
         $authenticatedUser = Auth::user();
+
         return view('posts.index',compact('posts','authenticatedUser'));
     }
 

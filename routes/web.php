@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FreindController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,11 +23,13 @@ Route::post('/cancel',[FreindController::class,'refuseFreind']);
 
 
 Route::prefix('post')->group(function() {
-    Route::get('/all',[PostController::class,'showPosts']);
+    Route::get('/all',[PostController::class,'showPosts'])->name('posts');
     Route::get('/postAdd',[PostController::class,'insertForm']);
     Route::post('/addPost',[PostController::class,'addPost'])->name('add');
 });
 
+
+Route::post('/like',[LikeController::class,'addLike'])->name('like');
 
 
 Route::get('/dashboard', function () {

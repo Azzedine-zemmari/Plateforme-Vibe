@@ -64,22 +64,30 @@
             
             <!-- Like and Comment Counts -->
             <div class="px-4 py-2 text-sm text-gray-500 border-t border-b">
-                <span>24 likes</span>
+                <span>{{$post->likes_count}} likes</span>
                 <span class="mx-2">•</span>
                 <span>8 comments</span>
             </div>
             
             <!-- Like and Comment Buttons -->
             <div class="flex border-b">
-                <button class="flex-1 py-2 flex items-center justify-center hover:bg-gray-100 transition">
-                    <i class="far fa-heart mr-2"></i>
-                    <span>Like</span>
-                </button>
-                <button class="flex-1 py-2 flex items-center justify-center hover:bg-gray-100 transition">
-                    <i class="far fa-comment mr-2"></i>
-                    <span>Comment</span>
-                </button>
-            </div>
+    <div class="flex-1">
+        <form action="{{route('like')}}" method="POST" class="w-full">
+            @csrf
+            <input type="hidden" name="postId" value="{{$post->id}}">
+            <button type="submit" class="w-full py-2 flex items-center justify-center hover:bg-gray-100 transition">
+                <i class="far fa-heart mr-2"></i>
+                <span>Like</span>
+            </button>
+        </form>
+    </div>
+    <div class="flex-1">
+        <button class="w-full py-2 flex items-center justify-center hover:bg-gray-100 transition">
+            <i class="far fa-comment mr-2"></i>
+            <span>Comment</span>
+        </button>
+    </div>
+</div>
             
             <!-- Comments Section -->
             <div class="p-4">
