@@ -34,16 +34,27 @@ class PostController extends Controller
         $posts = DB::table('posts')
         ->join('users','users.id','=','posts.userId')
         ->leftJoin('likes','likes.postId','=','posts.id')
+        ->leftJoin('commentaires','commentaires.postId','=','posts.id')
         ->select('users.name',
         'users.image',
         'posts.content',
         'posts.image as IMAGE',
         'posts.id',
+        'posts.userId',
+        DB::raw('COUNT(commentaires.id) as comment_like'),
         DB::raw('COUNT(likes.id) as likes_count')
         )
         ->groupBy('posts.id', 'users.name', 'users.image', 'posts.content', 'IMAGE') 
         ->orderByDesc('posts.created_at')
         ->get();
+
+        foreach($posts as $post){
+            $post->comments = DB::table('commentaires')
+            ->join('users','users.id','=','commentaires.userId')
+            ->where('commentaires.postId',$post->id)
+            ->select('users.name as user_name','commentaires.content','users.image as userImage')
+            ->get();
+        }
 
         $authenticatedUser = Auth::user();
 
@@ -62,6 +73,7 @@ class PostController extends Controller
         'posts.content',
         'posts.image as IMAGE',
         'posts.id',
+        'posts.userId',
         DB::raw('COUNT(likes.id) as likes_count'),
         DB::raw('COUNT(commentaires.id) as comment_like')
         )
@@ -78,6 +90,7 @@ class PostController extends Controller
             ->select('users.name as user_name','commentaires.content','users.image as userImage')
             ->get();
         }
+
 
         $authenticatedUser = Auth::user();
 
