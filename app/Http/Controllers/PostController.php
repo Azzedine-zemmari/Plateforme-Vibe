@@ -125,4 +125,13 @@ class PostController extends Controller
 
         return redirect()->route('posts');
     }
+    public function deletePost($postId){
+        $post = Post::findOrFail($postId);
+        if($post->image){
+            Storage::disk('public')->delete($post->image);
+        }
+        $post->delete();
+
+        return redirect()->route('posts');
+    }
 }

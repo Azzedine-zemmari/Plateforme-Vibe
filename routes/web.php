@@ -30,6 +30,7 @@ Route::prefix('post')->group(function() {
     Route::post('/addPost',[PostController::class,'addPost'])->name('add');
     Route::post('/Edit',[PostController::class,'EditPost'])->name('Edit');
     Route::post('/Update',[PostController::class,'updatePost'])->name('update');
+    Route::delete('/delete/{postId}',[PostController::class,'deletePost'])->name('delete');
 });
 
 
