@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentaireController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\PostCondition;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +29,7 @@ Route::prefix('post')->group(function() {
     Route::get('/postAdd',[PostController::class,'insertForm']);
     Route::post('/addPost',[PostController::class,'addPost'])->name('add');
     Route::post('/Edit',[PostController::class,'EditPost'])->name('Edit');
+    Route::post('/Update',[PostController::class,'updatePost'])->name('update');
 });
 
 

@@ -6,6 +6,8 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class PostController extends Controller
@@ -91,8 +93,36 @@ class PostController extends Controller
             return view('posts.postForm',compact('post'));
         }
         else{
-            http_response_code(404);
+            abort(404);
         }
 
+    }
+    public function updatePost(Request $request){
+        $postId = $request->input('postId');
+        $content = $request->input('content');
+
+        // find user 
+
+        $post = Post::find($postId);
+
+
+
+        if($request->hasFile('image')){
+            if($post->image){
+                Storage::disk('public')->delete($post->image);
+            }
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension();
+            $imagePath = $request->file('image')->storeAs('postPicture',$imageName,'public');
+            // update post Image
+            $post->image = $imagePath;  
+        }
+
+        // update the post content
+        $post->content = $content;
+
+        $post->save();
+
+        return redirect()->route('posts');
     }
 }

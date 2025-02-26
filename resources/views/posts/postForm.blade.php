@@ -13,8 +13,9 @@
         <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Create a Post</h2>
 
         <!-- Form -->
-        <form action="" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="{{route('update')}}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
+            <input type="hidden" name="postId" value="{{$post->id}}">
             <!-- Content Textarea -->
             <div>
                 <label for="content" class="block text-gray-700 font-medium">Content</label>
