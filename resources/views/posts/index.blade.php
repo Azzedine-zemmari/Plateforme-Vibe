@@ -90,28 +90,35 @@
 </div>
             
             <!-- Comments Section -->
+
             <div class="p-4">
+                
+                
+                <!-- Comment Input -->
+                <div class="flex items-center">
+                    <form action="{{route('comment')}}" method="POST">
+                        @csrf 
+                        <img src="{{asset('storage/'.$authenticatedUser->image)}}" alt="Your profile" class="rounded-full h-8 w-8">
+                        <div class="ml-2 flex-1 relative">
+                        <input type="hidden" name="postId" value="{{$post->id}}">
+                            <textarea 
+                                class="w-full border rounded-full py-2 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none" 
+                                placeholder="Write a comment..."
+                                rows="1"
+                                name="content"
+                            ></textarea>
+                            <button type="submit" class="absolute right-3 top-2 text-blue-500 hover:text-blue-700">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
                 <!-- Existing Comment -->
                 <div class="flex mb-4">
                     <img src="https://via.placeholder.com/30" alt="Profile" class="rounded-full h-8 w-8">
                     <div class="ml-2 bg-gray-100 rounded-lg p-2 flex-1">
                         <p class="font-semibold text-sm">Jane Smith</p>
                         <p class="text-sm">This looks amazing! Can't wait to see more.</p>
-                    </div>
-                </div>
-                
-                <!-- Comment Input -->
-                <div class="flex items-center">
-                    <img src="https://via.placeholder.com/30" alt="Your profile" class="rounded-full h-8 w-8">
-                    <div class="ml-2 flex-1 relative">
-                        <textarea 
-                            class="w-full border rounded-full py-2 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none" 
-                            placeholder="Write a comment..."
-                            rows="1"
-                        ></textarea>
-                        <button class="absolute right-3 top-2 text-blue-500 hover:text-blue-700">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
                     </div>
                 </div>
             </div>

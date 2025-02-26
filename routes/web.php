@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FreindController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentaireController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +32,8 @@ Route::prefix('post')->group(function() {
 
 Route::post('/like',[LikeController::class,'addLike'])->name('like');
 
+
+Route::post('/Comment',[CommentaireController::class,'createComment'])->name('comment');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
