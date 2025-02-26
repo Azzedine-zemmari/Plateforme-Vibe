@@ -24,4 +24,7 @@ class CommentaireController extends Controller
 
         return redirect()->route('posts');
     }
+    public function showComments(){
+        
+    }
 }

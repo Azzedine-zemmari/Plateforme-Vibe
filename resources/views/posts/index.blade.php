@@ -44,7 +44,7 @@
         </div>
 
         @foreach($posts as $post)
-        <!-- Post 1 -->
+        <!-- Post -->
         <div class="bg-white rounded-lg shadow-md mb-4 overflow-hidden">
             <!-- Post Header -->
             <div class="flex items-center p-4 border-b">
@@ -58,7 +58,7 @@
             <div class="p-4">
                 <p class="text-gray-800">{{$post->content}}</p>
                 @if($post->IMAGE)
-                <img src="{{asset('storage/')}}" alt="Post image" class="w-full h-64 object-cover mt-3 rounded">
+                <img src="{{asset('storage/'.$post->IMAGE)}}" alt="Post image" class="w-full h-64 object-cover mt-3 rounded">
                 @endif
             </div>
             
@@ -66,61 +66,63 @@
             <div class="px-4 py-2 text-sm text-gray-500 border-t border-b">
                 <span>{{$post->likes_count}} likes</span>
                 <span class="mx-2">•</span>
-                <span>8 comments</span>
+                <span>{{$post->comment_like}} comments</span>
             </div>
             
             <!-- Like and Comment Buttons -->
             <div class="flex border-b">
-    <div class="flex-1">
-        <form action="{{route('like')}}" method="POST" class="w-full">
-            @csrf
-            <input type="hidden" name="postId" value="{{$post->id}}">
-            <button type="submit" class="w-full py-2 flex items-center justify-center hover:bg-gray-100 transition">
-                <i class="far fa-heart mr-2"></i>
-                <span>Like</span>
-            </button>
-        </form>
-    </div>
-    <div class="flex-1">
-        <button class="w-full py-2 flex items-center justify-center hover:bg-gray-100 transition">
-            <i class="far fa-comment mr-2"></i>
-            <span>Comment</span>
-        </button>
-    </div>
-</div>
-            
-            <!-- Comments Section -->
-
-            <div class="p-4">
-                
-                
-                <!-- Comment Input -->
-                <div class="flex items-center">
-                    <form action="{{route('comment')}}" method="POST">
-                        @csrf 
-                        <img src="{{asset('storage/'.$authenticatedUser->image)}}" alt="Your profile" class="rounded-full h-8 w-8">
-                        <div class="ml-2 flex-1 relative">
+                <div class="flex-1">
+                    <form action="{{route('like')}}" method="POST" class="w-full">
+                        @csrf
                         <input type="hidden" name="postId" value="{{$post->id}}">
-                            <textarea 
-                                class="w-full border rounded-full py-2 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none" 
-                                placeholder="Write a comment..."
-                                rows="1"
-                                name="content"
-                            ></textarea>
-                            <button type="submit" class="absolute right-3 top-2 text-blue-500 hover:text-blue-700">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
+                        <button type="submit" class="w-full py-2 flex items-center justify-center hover:bg-gray-100 transition">
+                            <i class="far fa-heart mr-2"></i>
+                            <span>Like</span>
+                        </button>
                     </form>
                 </div>
-                <!-- Existing Comment -->
-                <div class="flex mb-4">
-                    <img src="https://via.placeholder.com/30" alt="Profile" class="rounded-full h-8 w-8">
-                    <div class="ml-2 bg-gray-100 rounded-lg p-2 flex-1">
-                        <p class="font-semibold text-sm">Jane Smith</p>
-                        <p class="text-sm">This looks amazing! Can't wait to see more.</p>
-                    </div>
+                <div class="flex-1">
+                    <button class="w-full py-2 flex items-center justify-center hover:bg-gray-100 transition">
+                        <i class="far fa-comment mr-2"></i>
+                        <span>Comment</span>
+                    </button>
                 </div>
+            </div>
+            
+            <!-- Comments Section -->
+            <div class="p-4">
+                <!-- Existing Comments -->
+                @if(count($post->comments) > 0)
+                <div class="space-y-3 mb-4">
+                    @foreach($post->comments as $comment)
+                    <div class="flex">
+                        <img src="{{asset('storage/'.$comment->userImage)}}" alt="Profile" class="rounded-full h-8 w-8">
+                        <div class="ml-2 bg-gray-100 rounded-lg p-2 flex-1">
+                            <p class="font-semibold text-sm">{{$comment->user_name}}</p>
+                            <p class="text-sm">{{$comment->content}}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
+                
+                <!-- Comment Input -->
+                <form action="{{route('comment')}}" method="POST" class="flex items-center">
+                    @csrf 
+                    <input type="hidden" name="postId" value="{{$post->id}}">
+                    <img src="{{asset('storage/'.$authenticatedUser->image)}}" alt="Your profile" class="rounded-full h-8 w-8">
+                    <div class="ml-2 flex-1 relative">
+                        <textarea 
+                            name="content"
+                            class="w-full border rounded-full py-2 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none" 
+                            placeholder="Write a comment..."
+                            rows="1"
+                        ></textarea>
+                        <button type="submit" class="absolute right-3 top-2 text-blue-500 hover:text-blue-700">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
         @endforeach
