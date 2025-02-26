@@ -22,6 +22,7 @@ Route::post('/cancel',[FreindController::class,'refuseFreind']);
 
 
 Route::prefix('post')->group(function() {
+    Route::get('/all',[PostController::class,'showPosts']);
     Route::get('/postAdd',[PostController::class,'insertForm']);
     Route::post('/addPost',[PostController::class,'addPost'])->name('add');
 });
