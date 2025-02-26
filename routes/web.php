@@ -27,6 +27,7 @@ Route::prefix('post')->group(function() {
     Route::get('/all',[PostController::class,'showPosts'])->name('posts');
     Route::get('/postAdd',[PostController::class,'insertForm']);
     Route::post('/addPost',[PostController::class,'addPost'])->name('add');
+    Route::post('/Edit',[PostController::class,'EditPost'])->name('Edit');
 });
 
 

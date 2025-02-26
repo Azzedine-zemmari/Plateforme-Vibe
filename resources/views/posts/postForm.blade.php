@@ -13,13 +13,13 @@
         <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Create a Post</h2>
 
         <!-- Form -->
-        <form action="{{route('add')}}" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
             <!-- Content Textarea -->
             <div>
                 <label for="content" class="block text-gray-700 font-medium">Content</label>
                 <textarea id="content" name="content" rows="4" placeholder="Write your post content here..."
-                    class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"> {{$post->content}}</textarea>
             </div>
 
             <!-- Image Upload -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -81,4 +82,17 @@ class PostController extends Controller
         return view('posts.index',compact('posts','authenticatedUser'));
     }
 
+    public function EditPost(Request $request){
+        $postId = $request->input('postId');
+
+        $post = Post::find($postId);
+
+        if($post){
+            return view('posts.postForm',compact('post'));
+        }
+        else{
+            http_response_code(404);
+        }
+
+    }
 }
