@@ -46,7 +46,8 @@ class UserController extends Controller
     }
     public function showProfile($userId){
         $user = User::find($userId);
-        return view('users.UserProfile', compact('user'));
+        $AuthenticatedId = Auth::id();
+        return view('users.UserProfile', compact('user','AuthenticatedId'));
     }
     public function showEditProfile($userId){
         $user = User::find($userId);

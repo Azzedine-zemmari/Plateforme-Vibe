@@ -44,6 +44,7 @@
                 </div>
 
                 <!-- Buttons -->
+                @if($AuthenticatedId == $user->id)
                 <div class="flex space-x-2">
                     <button class="px-4 py-2 bg-black text-white text-sm rounded-lg">
                         <a href="{{url('/EditProfile/'.$user->id)}}">Edit Profile</a>
@@ -54,6 +55,7 @@
                         </svg>
                     </a>
                 </div>
+                @endif
 
                 <!-- About Section -->
                 <div class=" space-y-4 shodow-xl  stroke-slate-500">

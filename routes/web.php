@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FreindController;
@@ -9,9 +9,15 @@ use App\Http\Controllers\CommentaireController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\PostCondition;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',function(){
+    return redirect()->route('login');
 });
+
+
+Route::get('login', [AuthenticatedSessionController::class, 'create'])
+->name('login');
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
 Route::match(['get','post'],'/users', [UserController::class, 'index'])->name('users');
 Route::get('/USERPROFILE/{userId}',[UserController::class,'showProfile'])->name('USERPROFILE');
 Route::get("/EditProfile/{userId}",[UserController::class,'showEditProfile']);

@@ -28,42 +28,24 @@ class PostController extends Controller
             $imagePath = null;
         }
 
-        DB::table('posts')->insert(['content'=>$content,'image'=>$imagePath,'created_at'=>now(),'updated_at'=>now(),'userId'=>Auth::id()]);
+        DB::table('posts')->insert([
+        'content'=>$content,
+        'image'=>$imagePath,
+        'created_at'=>now(),
+        'updated_at'=>now(),
+        'userId'=>Auth::id()]);
 
-        // Fetch the posts and authenticated user after inserting a post
-        $posts = DB::table('posts')
-        ->join('users','users.id','=','posts.userId')
-        ->leftJoin('likes','likes.postId','=','posts.id')
-        ->leftJoin('commentaires','commentaires.postId','=','posts.id')
-        ->select('users.name',
-        'users.image',
-        'posts.content',
-        'posts.image as IMAGE',
-        'posts.id',
-        'posts.userId',
-        DB::raw('COUNT(commentaires.id) as comment_like'),
-        DB::raw('COUNT(likes.id) as likes_count')
-        )
-        ->groupBy('posts.id', 'users.name', 'users.image', 'posts.content', 'IMAGE') 
-        ->orderByDesc('posts.created_at')
-        ->get();
-
-        foreach($posts as $post){
-            $post->comments = DB::table('commentaires')
-            ->join('users','users.id','=','commentaires.userId')
-            ->where('commentaires.postId',$post->id)
-            ->select('users.name as user_name','commentaires.content','users.image as userImage')
-            ->get();
-        }
-
-        $authenticatedUser = Auth::user();
-
-
-        return view('posts.index',compact('authenticatedUser','posts'));
+        return $this->showPosts();
 
     }
 
     public function showPosts(){
+        $posts = $this->fetchPosts();
+        $authenticatedUser = Auth::user();
+
+        return view('posts.index',compact('posts','authenticatedUser'));
+    }
+    private function fetchPosts(){
         $posts = DB::table('posts')
         ->join('users','users.id','=','posts.userId')
         ->leftJoin('likes','likes.postId','=','posts.id')
@@ -91,10 +73,7 @@ class PostController extends Controller
             ->get();
         }
 
-
-        $authenticatedUser = Auth::user();
-
-        return view('posts.index',compact('posts','authenticatedUser'));
+        return $posts;
     }
 
     public function EditPost(Request $request){

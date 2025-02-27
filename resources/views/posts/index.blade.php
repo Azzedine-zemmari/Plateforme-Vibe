@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Posts</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body class="bg-gray-100 min-h-screen p-4">
+<x-FreindsLayout>
     <div class="max-w-2xl mx-auto">
-        <!-- Header -->
-        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
-            <h1 class="text-2xl font-bold text-center text-blue-600">Social Feed</h1>
-        </div>
-
         <!-- Create Post Box -->
         <div class="bg-white rounded-lg shadow-md p-4 mb-4">
             <form action="{{route('add')}}" method="POST" enctype="multipart/form-data">
@@ -51,7 +37,7 @@
                 <div class="flex items-center">
                     <img src="{{asset('storage/'. $post->image)}}" alt="Profile" class="rounded-full h-10 w-10">
                     <div class="ml-3">
-                        <p class="font-semibold">{{$post->name}}</p>
+                        <a href="{{url('/USERPROFILE/'. $post->userId)}}" class="font-semibold">{{$post->name}}</a>
                     </div>
                 </div>
                 @if($post->userId == $authenticatedUser->id)
@@ -162,6 +148,12 @@
         </div>
         @endforeach
     </div>
+    <!-- Back to Top Button -->
+<button id="backToTopButton" class="fixed bottom-4 right-4 p-4 bg-blue-500 text-white rounded-full shadow-lg hidden focus:outline-none transition duration-300 ease-in-out hover:bg-blue-600">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+</button>
 
     <script>
         // Toggle actions dropdown
@@ -184,6 +176,23 @@
                 });
             });
         });
+
+            // Show or hide the back to top button based on scroll position
+    window.addEventListener('scroll', function() {
+        var backToTopButton = document.getElementById('backToTopButton');
+        if (window.scrollY > 300) {
+            backToTopButton.classList.remove('hidden');
+        } else {
+            backToTopButton.classList.add('hidden');
+        }
+    });
+
+    // Scroll to top when the button is clicked
+    document.getElementById('backToTopButton').addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
     </script>
-</body>
-</html>
+</x-FreindsLayout>
