@@ -47,7 +47,18 @@ class UserController extends Controller
     public function showProfile($userId){
         $user = User::find($userId);
         $AuthenticatedId = Auth::id();
-        return view('users.UserProfile', compact('user','AuthenticatedId'));
+        // Fetch the users friends
+        $friends = $user->freinds()->where('status', 'done')->get();
+        
+        //Fetch the users freinds
+        $posts = $user->posts()->latest()->get();
+        
+        // Fetch the users likes
+        $likes = $user->likes()->with('post')->latest()->get();        
+        // Fetch the users comments
+        $comments = $user->comments()->latest()->take(5)->get();
+
+        return view('users.UserProfile', compact('user','AuthenticatedId','friends','posts','likes','comments'));
     }
     public function showEditProfile($userId){
         $user = User::find($userId);

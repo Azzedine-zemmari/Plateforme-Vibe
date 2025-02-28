@@ -51,20 +51,20 @@ class User extends Authenticatable
     }
     // Define the relationship: a user has many freinds
     public function freinds(){
-        return $this->hasMany(Freind::class);
+        return $this->hasMany(Freind::class,'user_id');
     }
 
 
     public function posts(){
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class,'userId');
     }
 
     public function likes(){
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class,'userId');
     }
 
     public function comments(){
-        return $this->hasMany(Commentaire::class);
+        return $this->hasMany(Commentaire::class,'userId');
     }
 
     
