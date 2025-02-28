@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Freind;
 
 
 
@@ -35,6 +36,9 @@ class PostController extends Controller
         'updated_at'=>now(),
         'userId'=>Auth::id()]);
 
+        
+
+
         return $this->showPosts();
 
     }
@@ -46,10 +50,24 @@ class PostController extends Controller
         return view('posts.index',compact('posts','authenticatedUser'));
     }
     private function fetchPosts(){
+        // Get the authenticated user's ID
+        $authenticatedUserId = Auth::id();
+
+        // Fetch the IDs of the authenticated user's friends
+        $friendIds = Freind::where(function ($query) use ($authenticatedUserId) {
+            $query->where('user_id', $authenticatedUserId)
+                ->orWhere('friend_id', $authenticatedUserId);
+        })
+        ->where('status', 'done') // Only consider active friendships
+        ->pluck('friend_id') // Get the friend IDs
+        ->merge([$authenticatedUserId]) // Include the authenticated user's own posts
+        ->unique(); // Remove duplicates
+
         $posts = DB::table('posts')
         ->join('users','users.id','=','posts.userId')
         ->leftJoin('likes','likes.postId','=','posts.id')
         ->leftJoin('commentaires','commentaires.postId','=','posts.id')
+        ->whereIn('posts.userId', $friendIds) // Filter posts by friend IDs
         ->select('users.name',
         'users.image',
         'posts.content',
