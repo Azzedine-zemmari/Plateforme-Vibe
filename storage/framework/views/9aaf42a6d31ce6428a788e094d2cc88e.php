@@ -202,8 +202,26 @@
 <?php unset($__componentOriginald411d1792bd6cc877d687758b753742c); ?>
 <?php endif; ?>
         </div>
-         <!-- Register Link -->
-         <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+
+        <!-- Social Login Buttons -->
+        <div class="mt-6">
+            <div class="text-center text-sm text-gray-600 dark:text-gray-400 mb-4">Or sign in with</div>
+
+            <div class="flex justify-center space-x-4">
+                <!-- Google Login Button -->
+                <a href="<?php echo e(route('auth.google')); ?>" class="flex items-center justify-center bg-white hover:bg-gray-100 border border-gray-300 rounded-lg p-2 shadow-sm transition duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    <img src="<?php echo e(asset('images/google.png')); ?>" alt="Google" class="w-6 h-6">
+                </a>
+
+                <!-- Facebook Login Button -->
+                <a href="" class="flex items-center justify-center bg-white hover:bg-gray-100 border border-gray-300 rounded-lg p-2 shadow-sm transition duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <img src="<?php echo e(asset('images/facebook (1).png')); ?>" alt="Facebook" class="w-6 h-6">
+                </a>
+            </div>
+        </div>
+
+        <!-- Register Link -->
+        <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
             <a href="<?php echo e(route('register')); ?>" class="underline hover:text-gray-900 dark:hover:text-gray-100">
                 <?php echo e(__('Don\'t have an account? Register here.')); ?>
 
@@ -219,5 +237,4 @@
 <?php if (isset($__componentOriginal69dc84650370d1d4dc1b42d016d7226b)): ?>
 <?php $component = $__componentOriginal69dc84650370d1d4dc1b42d016d7226b; ?>
 <?php unset($__componentOriginal69dc84650370d1d4dc1b42d016d7226b); ?>
-<?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\Plateforme-Vibe-main\resources\views/auth/login.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\Plateforme-Vibe-main\resources\views/auth/login.blade.php ENDPATH**/ ?>
