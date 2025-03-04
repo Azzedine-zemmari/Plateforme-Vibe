@@ -55,7 +55,7 @@
                 </a>
 
                 <!-- Facebook Login Button -->
-                <a href="" class="flex items-center justify-center bg-white hover:bg-gray-100 border border-gray-300 rounded-lg p-2 shadow-sm transition duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <a href="{{ route('auth.facebook') }}" class="flex items-center justify-center bg-white hover:bg-gray-100 border border-gray-300 rounded-lg p-2 shadow-sm transition duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     <img src="{{ asset('images/facebook (1).png') }}" alt="Facebook" class="w-6 h-6">
                 </a>
             </div>
