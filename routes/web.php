@@ -63,25 +63,30 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::post('/chat', function () {
-    $messageText = request('message_text');
-    $userId = request('user_Id') ?? Auth::id(); // Use user_Id from request or fallback to Auth::id()
-
-    if (!$messageText || !$userId) {
-        return response()->json(['error' => 'Invalid message'], 400);
-    }
-
-    // Save the message to the database
-    $message = Message::create([
-        'user_Id' => $userId,
-        'message_text' => $messageText,
-    ]);
-
-    // Broadcast the message
-    event(new MessageSent($message->toArray()));
-
-    return response()->json(['status' => 'Message sent']);
+Route::middleware('auth')->group(function () {
+    Route::get('/chat', [MessageController::class, 'getMessages']);
+    Route::post('/send-message', [MessageController::class, 'sendMessage']);
 });
+
+
+// Route::post('/chat', function () {
+//     $messageText = request('message_text');
+//     $userId = request('user_Id') ?? Auth::id(); // Use user_Id from request or fallback to Auth::id()
+
+//     if (!$messageText || !$userId) {
+//         return response()->json(['error' => 'Invalid message'], 400);
+//     }
+
+//     // Save the message to the database
+//     $message = Message::create([
+//         'user_Id' => $userId,
+//         'message_text' => $messageText,
+//     ]);
+
+//     // Broadcast the message
+//     event(new MessageSent($message->toArray()));
+
+//     return response()->json(['status' => 'Message sent']);
+// });
 
 require __DIR__.'/auth.php';    

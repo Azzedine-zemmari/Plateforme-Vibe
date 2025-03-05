@@ -29,15 +29,15 @@
 
     
 
-    import { createApp } from 'vue';
-    import Chat from './components/Chat.vue';
-    import App from './App.vue'
-    import axios from 'axios';
+//     import { createApp } from 'vue';
+//     import Chat from './components/Chat.vue';
+//     import App from './App.vue'
+//     import axios from 'axios';
 
-// Automatically set the CSRF token for every Axios request
-axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const app = createApp(App);
-    app.component('Chat', Chat);
+// // Automatically set the CSRF token for every Axios request
+// axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//     const app = createApp(App);
+//     app.component('Chat', Chat);
     
-    app.mount("#app");
+//     app.mount("#app");
 
