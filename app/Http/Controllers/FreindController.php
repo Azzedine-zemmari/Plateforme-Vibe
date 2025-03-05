@@ -16,7 +16,7 @@ class FreindController extends Controller
         $authenticatedId = Auth::id();
         $freinds = Freind::join('users','users.id','=','freinds.friend_id')
         ->where('freinds.user_id','=',$authenticatedId)
-        ->select('users.id','users.name','users.email','users.pseudo','users.image','freinds.status')
+        ->select('users.id','users.name','users.email','users.pseudo','users.image','freinds.status','users.is_online')
         ->get();
 
         return view('users.Myfreinds',compact('freinds'));
