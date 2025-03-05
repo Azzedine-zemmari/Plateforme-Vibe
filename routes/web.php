@@ -1,13 +1,14 @@
 <?php
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FreindController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\LikeController;
+use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentaireController;
-use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\PostCondition;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/',function(){
     return redirect()->route('login');
@@ -28,6 +29,9 @@ Route::post('/userAdd',[FreindController::class,'addFreind']);
 Route::get("/Myfreinds",[FreindController::class,'index'])->name('Myfreinds');
 Route::post('/accepteRequest',[FreindController::class,'acceptFreind']);
 Route::post('/cancel',[FreindController::class,'refuseFreind']);
+
+Route::get('/invite', [QrCodeController::class, 'handleInvitation'])->name('invite');
+Route::get('/qr-code/{user_id}', [QrCodeController::class, 'generate'])->name('generate');
 
 
 Route::prefix('post')->group(function() {
