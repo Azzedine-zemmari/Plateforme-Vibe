@@ -34,6 +34,7 @@ class QrCodeController extends Controller
    }
 
    public function handleInvitation(Request $request){
+    
 
         $token = $request->query('token');
         $scanner = auth()->user();
