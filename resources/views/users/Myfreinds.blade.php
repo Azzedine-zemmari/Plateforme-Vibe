@@ -57,7 +57,11 @@
                                     onerror="this.onerror=null; this.src=null; this.parentNode.innerHTML='<span class=\'text-2xl font-semibold text-indigo-600\'>{{ substr($freind->name, 0, 1) }}</span>';"
                                 >
                             </div>
+                            @if($freind->is_online)
                             <div class="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-green-400"></div>
+                            @else
+                            <div class="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-gray-400"></div>
+                            @endif
                         </div>
 
                         <!-- User Info -->
