@@ -61,6 +61,7 @@
                 </div>
             </div>
             <div class="ml-4 flex-shrink-0 flex space-x-2">
+                <a href="{{ route('generate', ['user_id' => $user->id]) }}">QR Code</a>
                 <form action="{{url('/userAdd')}}" method="POST">
                     @csrf
                     <input type="hidden" value="{{$user->id}}" name="idUser"  id="user-id">

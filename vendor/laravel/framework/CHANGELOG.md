@@ -1,5 +1,6 @@
 # Release Notes for 11.x
 
+<<<<<<< HEAD
 ## [Unreleased](https://github.com/laravel/framework/compare/v11.44.0...11.x)
 
 ## [v11.44.0](https://github.com/laravel/framework/compare/v11.43.2...v11.44.0) - 2025-02-24
@@ -12,6 +13,9 @@
 * [11.x] Deprecate `Factory::$modelNameResolver` by [@samlev](https://github.com/samlev) in https://github.com/laravel/framework/pull/54736
 * [11x.] Improved typehints for `InteractsWithDatabase` by [@cosmastech](https://github.com/cosmastech) in https://github.com/laravel/framework/pull/54748
 * [11.x] Improved typehints for `InteractsWithExceptionHandling` && `ExceptionHandlerFake` by [@cosmastech](https://github.com/cosmastech) in https://github.com/laravel/framework/pull/54747
+=======
+## [Unreleased](https://github.com/laravel/framework/compare/v11.43.2...11.x)
+>>>>>>> ayuub
 
 ## [v11.43.2](https://github.com/laravel/framework/compare/v11.43.1...v11.43.2) - 2025-02-19
 
