@@ -6,6 +6,8 @@ use App\Http\Controllers\FreindController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\PostCondition;
@@ -57,5 +59,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/messages/{id}/activate', [MessageController::class, 'activate'])->name('messages.activate');
+Route::post('/send-location', [LocationController::class, 'store'])->name('send.location');
 
 require __DIR__.'/auth.php';
