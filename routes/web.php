@@ -7,6 +7,9 @@ use App\Http\Controllers\FreindController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MessageController;
 use PHPUnit\Framework\Attributes\PostCondition;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -58,5 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/messages/{id}/activate', [MessageController::class, 'activate'])->name('messages.activate');
+Route::post('/send-location', [LocationController::class, 'store'])->name('send.location');
 
 require __DIR__.'/auth.php';
