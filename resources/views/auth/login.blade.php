@@ -43,8 +43,26 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
-         <!-- Register Link -->
-         <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+
+        <!-- Social Login Buttons -->
+        <div class="mt-6">
+            <div class="text-center text-sm text-gray-600 dark:text-gray-400 mb-4">Or sign in with</div>
+
+            <div class="flex justify-center space-x-4">
+                <!-- Google Login Button -->
+                <a href="{{ route('auth.google') }}" class="flex items-center justify-center bg-white hover:bg-gray-100 border border-gray-300 rounded-lg p-2 shadow-sm transition duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    <img src="{{ asset('images/google.png') }}" alt="Google" class="w-6 h-6">
+                </a>
+
+                <!-- Facebook Login Button -->
+                <a href="{{ route('auth.facebook') }}" class="flex items-center justify-center bg-white hover:bg-gray-100 border border-gray-300 rounded-lg p-2 shadow-sm transition duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <img src="{{ asset('images/facebook (1).png') }}" alt="Facebook" class="w-6 h-6">
+                </a>
+            </div>
+        </div>
+
+        <!-- Register Link -->
+        <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
             <a href="{{ route('register') }}" class="underline hover:text-gray-900 dark:hover:text-gray-100">
                 {{ __('Don\'t have an account? Register here.') }}
             </a>

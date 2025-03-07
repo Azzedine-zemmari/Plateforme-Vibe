@@ -12,6 +12,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MessageController;
 use PHPUnit\Framework\Attributes\PostCondition;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\SocialiteController;
 
 Route::get('/',function(){
     return redirect()->route('login');
@@ -64,5 +65,11 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/messages/{id}/activate', [MessageController::class, 'activate'])->name('messages.activate');
 Route::post('/send-location', [LocationController::class, 'store'])->name('send.location');
+// Routes pour la connexion sociale
+Route::get('/auth/google', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+
+Route::get('/auth/facebook', [SocialiteController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('/auth/facebook/callback', [SocialiteController::class, 'handleFacebookCallback']);
 
 require __DIR__.'/auth.php';
