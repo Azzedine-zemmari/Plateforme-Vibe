@@ -11,7 +11,6 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MessageController;
 use PHPUnit\Framework\Attributes\PostCondition;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\SocialiteController;
 
 Route::get('/',function(){
