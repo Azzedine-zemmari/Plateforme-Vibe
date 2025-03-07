@@ -66,6 +66,13 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Commentaire::class,'userId');
     }
+    public function qrcode(){
+        return $this->hasOne(Qrcode::class);
+    }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
     
 }

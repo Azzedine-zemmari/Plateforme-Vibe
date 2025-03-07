@@ -28,6 +28,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+        $user->is_online = true;
+        $user->save();
+
         return redirect()->intended(route('posts', absolute: false));
     }
 
@@ -36,6 +40,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $user = Auth::user();
+        if($user){
+            $user->is_online = false;
+            $user->save();
+        }
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
